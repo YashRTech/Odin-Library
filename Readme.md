@@ -9,6 +9,7 @@ A simple web app to track and manage your personal book collection. You can add 
 - Remove books from the list
 - Data persistence using localStorage
 - Simple, clean UI
+- Responsive
 
 
 ## Technologies Used
