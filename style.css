@@ -49,10 +49,10 @@ header {
 
 .all-books {
   margin-top: 20px;
-  width: 80vw;
+  width: 95%;
   display: grid;
   gap: 40px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   margin: auto;
 }
 .book {
@@ -149,3 +149,18 @@ footer {
   background-color: var(--white);
   margin-top: 40px;
 }
+
+
+
+@media (width>=600px) {
+  .all-books{
+    grid-template-columns: 1fr 1fr
+  }
+}
+@media (width>=1000px) {
+  .all-books{
+    width: 80%;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
