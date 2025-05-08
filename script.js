@@ -13,12 +13,30 @@ function addBookToLibrary(title, author, pages, read) {
   // take params, create a book then store it in the array
   let newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
+
+  updateLocalStorage();
 }
 
-//! Adding books to library
-addBookToLibrary("Yash The Gamer", "Yash Tiwari", "725", true);
-addBookToLibrary("Factory The Developer", "Yash Tiwari", "632", false);
-addBookToLibrary("Bansi The Designer", "Yash Tiwari", "459", true);
+//! Adding localStorage
+function updateLocalStorage() {
+  localStorage.setItem("library", JSON.stringify(myLibrary));
+}
+function loadFromLocalStorage() {
+  const data = localStorage.getItem("library");
+  if (data) {
+    const books = JSON.parse(data);
+    books.forEach((book) => {
+      addBookToLibrary(book.title, book.author, book.pages, book.read);
+      showBooksToPage(
+        book.title,
+        book.author,
+        book.pages,
+        book.read,
+        myLibrary.at(-1).id
+      );
+    });
+  }
+}
 
 const allBooks = document.querySelector(".all-books");
 
@@ -36,6 +54,7 @@ function showBooksToPage(title, author, pages, read, id) {
   title1.textContent = title;
   author1.textContent = author;
   pages1.textContent = pages;
+
   if (read) {
     read1.textContent = "Read";
   } else {
@@ -54,12 +73,19 @@ function showBooksToPage(title, author, pages, read, id) {
     read1.style.backgroundColor = "var(--light-red)";
   }
   read1.addEventListener("click", () => {
+    // Toggle UI
     if (read1.textContent == "Read") {
       read1.textContent = "Not read";
       read1.style.backgroundColor = "var(--light-red)";
     } else {
       read1.textContent = "Read";
       read1.style.backgroundColor = "var(--light-green)";
+    }
+    // Update myLibrary and localStorage
+    const targetBook = myLibrary.find((book) => book.id === div.id);
+    if (targetBook) {
+      targetBook.read = read1.textContent == "Read";    // updating localStorage for read or not read
+      updateLocalStorage();
     }
   });
 
@@ -74,10 +100,6 @@ function showBooksToPage(title, author, pages, read, id) {
   div.appendChild(remove1);
 
   allBooks.appendChild(div);
-}
-
-for (let book of myLibrary) {
-  showBooksToPage(book.title, book.author, book.pages, book.read, book.id);
 }
 
 const addBtn = document.querySelector(".add-btn");
@@ -104,27 +126,12 @@ document.body.addEventListener("click", (e) => {
 //* Changing read and not read
 const readBtns = document.querySelectorAll(".read-btn");
 
-readBtns.forEach((readBtn) => {
-  if (readBtn.textContent == "Read") {
-    readBtn.style.backgroundColor = "var(--light-green)";
-  } else {
-    readBtn.style.backgroundColor = "var(--light-red)";
-  }
-  readBtn.addEventListener("click", () => {
-    if (readBtn.textContent == "Read") {
-      readBtn.textContent = "Not read";
-      readBtn.style.backgroundColor = "var(--light-red)";
-    } else {
-      readBtn.textContent = "Read";
-      readBtn.style.backgroundColor = "var(--light-green)";
-    }
-  });
-});
-
 //! Adding boxes from dialog
 
 const addNewBook = document.querySelector(".btn-add-new-book");
-function addNewBookToLibrary() {
+function addNewBookToLibrary(e) {
+  e.preventDefault();
+
   const title = document.querySelector("#title");
   const author = document.querySelector("#author");
   const pages = document.querySelector("#pages");
@@ -163,12 +170,9 @@ function handleRemoveBtn(btn) {
     if (book.id == parentElement.id) {
       const bookIndex = myLibrary.indexOf(book);
       myLibrary.splice(bookIndex, 1);
+      updateLocalStorage();
     }
   });
 }
 
-removeBtn.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    handleRemoveBtn(btn);
-  });
-});
+loadFromLocalStorage();
