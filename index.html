@@ -1,14 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <meta name="description" content="Track and manage your personal library. Add, view, and manage your books easily.">
+    <meta name="author" content="Yash Tiwari">
+    <meta name="keywords" content="library, book tracker, reading list, bookshelf, Yash Tiwari">
     
 
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="conatiner">
+        <header>
+            <h1>My Library</h1>
+        </header>
+        <main>
+            <div class="add"><button type="button" class="btn add-btn">+ Add book</button>
+            </div>
+            <div class="all-books">
+            </div>
+        </main>
+    </div>
+    <div class="overlay hidden"></div>
+
+    <div class="dialog hidden">
+        <h2>Add new book</h2>
+
+        <form action="" id="dialog-form">
+            <div>
+                <input type="text" id="title" required placeholder="Title">
+            </div>
+            <div>
+                <input type="text" id="author" required placeholder="Author">
+            </div>
+            <div>
+                <input type="number" id="pages" required placeholder="Pages">
+            </div>
+            <div>
+                <label for="read">Have you read it? </label>
+                <input type="checkbox" id="read">
+            </div>
+
+            <button type="submit" class="btn  btn-add-new-book">Add</button>
+        </form>
+    </div>
+
+
+    <footer>
+        <p>© 2025 Yash Tiwari. All rights reserved.</p>
+    </footer>
     <script src="script.js"></script>
 </body>
+
 </html>
