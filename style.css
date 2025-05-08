@@ -148,8 +148,16 @@ footer {
   align-items: center;
   background-color: var(--white);
   margin-top: 40px;
+  font-weight: 600;
 }
-
+footer p{
+  display: flex;
+  gap: 10px;
+}
+footer p a{
+  display: flex;
+  align-items: center;
+}
 
 
 @media (width>=600px) {
