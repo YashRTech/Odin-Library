@@ -1,12 +1,13 @@
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
-  // the constructor...
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.id = crypto.randomUUID();
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.id = crypto.randomUUID();
+  }
 }
 
 function addBookToLibrary(title, author, pages, read) {
@@ -84,7 +85,7 @@ function showBooksToPage(title, author, pages, read, id) {
     // Update myLibrary and localStorage
     const targetBook = myLibrary.find((book) => book.id === div.id);
     if (targetBook) {
-      targetBook.read = read1.textContent == "Read";    // updating localStorage for read or not read
+      targetBook.read = read1.textContent == "Read"; // updating localStorage for read or not read
       updateLocalStorage();
     }
   });
