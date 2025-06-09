@@ -139,7 +139,7 @@ function addNewBookToLibrary(e) {
   const read = document.querySelector("#read");
   let check = read.checked ? true : false;
 
-  if (title.value == "" || author.value == "" || pages.value == "") {
+  if (title.validity.valid || author.validity.valid || pages.validity.valid) {
     alert(
       "None of filed should be empty. \nPlease fill out the remaining field"
     );
